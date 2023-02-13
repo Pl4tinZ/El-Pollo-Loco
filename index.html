@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>El Pollo Loco</title>
+    <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./js/global.js"></script>
+    <script src="./js/models/keyboard.class.js"></script>
+
+    <script src="./js/models/drwableObject.class.js"></script>
+    <script src="./js/models/healthBar.class.js"></script>
+    <script src="./js/models/enbossHealthBar.class.js"></script>
+    <script src="./js/models/coinBar.class.js"></script>
+    <script src="./js/models/bottleBar.class.js"></script>
+    <script src="./js/models/coin.class.js"></script>
+    <script src="./js/models/bottle.class.js"></script>
+
+    <script src="./js/models/movable.class.js"></script>
+    <script src="./js/models/throwableObject.class.js"></script>
+    <script src="./js/models/cloud.class.js"></script>
+    <script src="./js/models/barbedWire.class.js"></script>
+    <script src="./js/models/backgroundParts.class.js"></script>
+    <script src="./js/models/character.class.js"></script>
+    <script src="./js/models/chicken.class.js"></script>
+    <script src="./js/models/smallChicken.class.js"></script>
+    <script src="./js/models/endboss.class.js"></script>
+
+    <script src="./js/models/level.class.js"></script>
+    <script src="./js/levels/level1.js"></script>
+
+    <script src="./js/models/world.class.js"></script>
+  </head>
+
+  <body onload="init()">
+    <div class="content" id="content">
+      <div class="info" id="info">
+        <div class="box">
+          <div class="box1">
+            <ul>
+              <li class="li-right">Nach Rechts</li>
+              <li class="li-left">Nach Links</li>
+            </ul>
+
+            <ul>
+              <li class="li-jump">Springen</li>
+              <li class="li-throw">Werfen</li>
+            </ul>
+          </div>
+
+          <div class="box1">
+            <ul>
+              <li class="a" onclick="openMusic()">Musik</li>
+              <li class="a" onclick="openSettings()">Einstellung</li>
+            </ul>
+
+            <ul>
+              <li class="a" onclick="openBestPlayer()">Bestenliste</li>
+              <li class="a" id="start" onclick="startGame()">Spiel Starten</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="start">
+        <div class="start-img" id="start-img">
+          <img src="img/9_intro_outro_screens/start/startscreen_2.png" alt="" />
+          <img id="play-btn" onclick="startGame()" src="img/new_items/play_btn.png" alt="" />
+        </div>
+
+        <canvas id="canvas" width="" height=""></canvas>
+
+        <div class="game-over" id="game-over">
+          <h2 id="game-over-text">¿Qué sucedió? ¡Estuviste súper genial!</h2>
+
+          <div class="level" id="level">
+            <h2>
+              Level
+              <h2 id="level-index">$</h2>
+            </h2>
+          </div>
+
+          <div class="points">
+            <div>
+              <h3>Punkte:</h3>
+            </div>
+            <div>
+              <h3 class="points-quantity" id="points-quantity">$$$$$</h3>
+            </div>
+          </div>
+          <div class="points">
+            <div>
+              <h3>Gegrillte Hünchen:</h3>
+            </div>
+            <div>
+              <h3 class="points-quantity" id="killed-enemies">$$$$$</h3>
+            </div>
+          </div>
+
+          <div class="announcement">
+            <h2>
+              <button id="next-level-btn" onclick="world.startNextLevel()">Nächstes Level</button>
+            </h2>
+          </div>
+        </div>
+
+        <div class="settings" id="settings">
+          <h2>
+            Herausforderungen sind Chancen! Wachstum entsteht nicht, wenn du immer am selben Fleck bleibst. Du brauchst regelmäßig neue Herausforderungen, um
+            deine Einstellung zu stärken und dich über deine Erfolge zu freuen! <br /><br />
+            Lies das nochmal!
+          </h2>
+        </div>
+
+        <div class="music" id="music">
+          <h2>
+            Wie nennt man mexikanische Musik? <br />
+            <br />
+            Mariachi in der mexikanischen Kultur In Mexiko, vor allem im zentralen Hochland, ist die Musik der Mariachi bis heute fester Bestandteil der
+            Volkskultur. Es gibt keinen Anlass, zu dem nicht Mariachi aufspielen.
+          </h2>
+        </div>
+
+        <div class="best-player" id="best-player">
+          <h2>Hier könnte dein Name stehehen, tut er aber nicht</h2>
+        </div>
+
+        <div class="fullscreen" id="fullscreen">
+          <img onclick="closeMobileFullscreen()" src="img/new_items/exit_fullscreen.png" alt="" />
+        </div>
+
+        <div class="mobile-control" id="mobile-control">
+          <div class="mobile-left">
+            <img id="m-left" src="img/mobile_control/arrow-left.png" alt="" />
+            <img id="m-right" src="img/mobile_control/arrow-right.png" alt="" />
+          </div>
+
+          <div class="mobile-right">
+            <img id="m-d" src="img/mobile_control/d.png" alt="" />
+            <img id="m-space" src="img/mobile_control/space.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
